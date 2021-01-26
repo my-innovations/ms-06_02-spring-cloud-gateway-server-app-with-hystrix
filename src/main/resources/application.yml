@@ -1,0 +1,21 @@
+server:
+  port: 8191
+spring:
+  application:
+    name: gateway-server-ms
+  cloud: 
+    gateway:
+      discovery: 
+        locator: 
+          enabled: true
+          lowerCaseServiceId: true
+      routes:      - id: currency-exchange-service
+        uri: lb://currency-exchange-service
+        predicates: 
+        - path = /currency-exchange-api/**
+      - id: currency-conversion-service
+        uri: lb://currency-conversion-service
+        predicates: 
+        - path = /currency-conversion-api/**
+
+management:  endpoints:    web:      exposure:        include:        - '*'
