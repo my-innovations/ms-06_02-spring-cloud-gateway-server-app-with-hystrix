@@ -32,11 +32,12 @@
 	</properties>
 
 	<dependencies>
+	<!--  for gateway app -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
-		<!--  For registering with naming server -->
+		<!--  For registering with naming server app -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -47,7 +48,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-			<dependency>
+		<!-- This ms will act as config client app -->
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>

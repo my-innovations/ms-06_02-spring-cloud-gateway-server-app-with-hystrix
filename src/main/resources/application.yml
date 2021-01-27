@@ -2,7 +2,7 @@ server:
   port: 8191
 spring:
   application:
-    name: gateway-server-ms
+    name: api-gateway-server-ms
   cloud: 
     gateway:
       discovery: 
@@ -12,10 +12,25 @@ spring:
       routes:      - id: currency-exchange-service
         uri: lb://currency-exchange-service
         predicates: 
-        - path = /currency-exchange-api/**
+        - path=/currency-exchange-api/**
+        filters:         - name: CircuitBreaker
+           args:
+            name: currency-exchange-service
+            fallbackuri: forword:/currency-exchange-service-fallback
       - id: currency-conversion-service
         uri: lb://currency-conversion-service
         predicates: 
-        - path = /currency-conversion-api/**
-
+        - path=/currency-conversion-api/**
+        filters:
+         - name: CircuitBreaker
+           args:
+            name: currency-conversion-service
+            fallbackuri: forword:/currency-conversion-service-fallback
 management:  endpoints:    web:      exposure:        include:        - '*'
+hystrix:
+ command:
+  fallbackcmd:
+   execution:
+    isolation:
+     thread:
+      timeOutInMilliSeconds: 4000
