@@ -1,19 +1,30 @@
 	server.port=8191
 	spring.application.name=gateway-server-ms
 	
-	#for Registering to eureka discovery service.
-	#This configurations have moved to application.properties file of config-server, o commented here.
+	#for Registering to eureka discovery service., This configurations have moved to application.properties file of config-server, o commented here.
 	#eureka.client.registerWithEureka=true
 	#eureka.client.fetchRegistry=true
 	#eureka.client.service-url.default-zone=http://localhost:8761/eureka/
 	#eureka.instance.hostname=localhost
 	
-	#Routing paths(when we use spring cloud gateway dependency)
+	
 	
 	#spring.cloud.loadbalancer.ribbon.enabled=false
 	
 	spring.cloud.gateway.discovery.locator.enabled=true
 	spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
+	
+	#Routing paths(when we use spring cloud gateway dependency)
+	
+	spring.cloud.gateway.routes[0].id=currency-exchange-service
+	spring.cloud.gateway.routes[0].uri=lb://currency-exchange-service
+	spring.cloud.gateway.routes[0].predicates[0]=Path=/currency-exchange-api/**
+	
+	spring.cloud.gateway.routes[1].id=currency-conversion-service
+	spring.cloud.gateway.routes[1].uri=lb://currency-conversion-service
+	spring.cloud.gateway.routes[1].predicates[0]=Path=/currency-conversion-api/**
+	
+	#OR
 	
 	spring.cloud.gateway.routes.id=currency-exchange-service
 	spring.cloud.gateway.routes.uri=lb://currency-exchange-service
