@@ -15,6 +15,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		
 		<!-- spring cloud releases -->
 		<!-- <spring-cloud.version>Angel.SR3</spring-cloud.version> -->
 		<!-- <spring-cloud.version>Brixton.RELEASE</spring-cloud.version> -->
@@ -22,22 +24,30 @@
 		<!-- <spring-cloud.version>Camden.SR6</spring-cloud.version> -->
 		<!-- <spring-cloud.version>Dalston.RELEASE</spring-cloud.version> -->
 		<!-- <spring-cloud.version>Edgware.RELEASE</spring-cloud.version> -->
+		
 		<!-- when working with jdk8 -->
 		<!-- <spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version> -->
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		
 		<!-- when working with jdk11 -->
 		<!-- <spring-cloud.version>Hoxton.SR5</spring-cloud.version> -->
 		<!-- <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version> -->
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		
 	</properties>
 
 	<dependencies>
-	<!--  for gateway app -->
+	
+		<!-- #############################################################################
+							Spring Cloud Dependencies
+		 ############################################################################# -->
+        
+		<!--  for gateway app -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
 		</dependency>
-		<!--  For registering with naming server app -->
+		
+		<!--  For registering with Eureka naming and discovery server app -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -48,20 +58,41 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- This ms will act as config client app -->
+		
+		<!-- This api-gate-way ms will act as config client app to recieve latest updated cfgns from config server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		
 		<!-- For using hystrix circuit breaker -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		
+		<!-- for distributed log tracing add sleuth,zipkin,bus-amqp dependency -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+		
+		<!-- To send message to zipkin server(which is unning in port 9411) through this zipkin client and rabbitmq  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-sleuth-zipkin</artifactId>
+		</dependency>
+		
+		<!-- <dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
+			</dependency> -->
+			
 	</dependencies>
 
 	<dependencyManagement>
